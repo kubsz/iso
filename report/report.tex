@@ -312,9 +312,9 @@ GROUP   BY resource_booking.resource_id
 ORDER   BY COUNT(resource_booking.resource_id) DESC
 \end{lstlisting} 
 
-\subsubsection{Walk Through} First, \textit{resource\_id}, \textit{resource\_name} and \textit{times\_hired} (calculated from the \textbf{COUNT()} function) must be selected originally from the \textit{resources} table.
+\subsubsection{Walk Through} First, \textit{resource\_id}, \textit{resource\_name} and \textit{times\_hired} (calculated from the \textbf{COUNT} function) must be selected originally from the \textit{resources} table.
 \\\newline
-Secondly, an \textbf{INNER JOIN} keyword is used to link the \textit{resource\_booking} table based on the column \textit{resource\_id}. Furthermore, the \textbf{GROUP BY} keyword is used to group all the data selected by the \textit{resource\_id} column where the \textbf{COUNT()} result of \textit{resource\_id} is less than three. Finally, the data is ordered by the \textbf{COUNT()} result of \textit{resource\_id} \acrshort{desc} using the \textbf{ORDER BY} keyword for convenience.
+Secondly, an \textbf{INNER JOIN} keyword is used to link the \textit{resource\_booking} table based on the column \textit{resource\_id}. Furthermore, the \textbf{GROUP BY} keyword is used to group all the data selected by the \textit{resource\_id} column where the \textbf{COUNT} result of \textit{resource\_id} is less than three. Finally, the data is ordered by the \textbf{COUNT} result of \textit{resource\_id} \acrshort{desc} using the \textbf{ORDER BY} keyword for convenience.
 
 \subsubsection{Query Results}
 \includegraphics[width=\linewidth]{images/08.png}
