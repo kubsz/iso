@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{appendix}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{keyword}{rgb}{100,0,100}
+
+\usepackage[acronym]{glossaries}
+\usepackage{graphicx}
+
+\makeglossaries
+
+\newglossaryentry{function}
+{
+        name=function,
+        description={A function is a unit of code that is often defined by its role within a greater code structure}
+}
+
+\newglossaryentry{unix}
+{
+        name=unix time,
+        description={Also known as seconds since epoch, unix time is a system to describe a point in time. It is the number of seconds that have elapsed since 00:00:00 Thursday, 1  January 1970.}
+}
+
+\newglossaryentry{mysql}
+{
+        name=mysql,
+        description={mySQL is an open source relational database management system}
+}
+
+\newacronym{pk}{PK}{Primary Key}
+\newacronym{fk}{FK}{Foreign Key}
+\newacronym{sql}{SQL}{Structured Query Language}
+\newacronym{php}{PHP}{Personal Home Page / Hypertext Preprocessor}
+\newacronym{asc}{ASC}{Ascending}
+\newacronym{desc}{DESC}{Descending}
+
+
+\lstdefinestyle{mystyle}{
+    basicstyle=\fontfamily{pcr}\selectfont\footnotesize,
+    backgroundcolor=\color{backcolour},
+    keywordstyle=\color{keyword},
+    numbers=left,
+    stringstyle=,
+    showspaces=false,
+    showstringspaces=false
+}
+
+\title{ISO Individual Report}
+\author{
+Kubilay Korkmaz\\
+\texttt{me@kubs.uk}\\
+\texttt{15114192@shrewsbury.ac.uk}
+}
+\date{March 2019}
+
+\begin{document}
+
+\maketitle
+
+\clearpage
+
+\tableofcontents
+
+\clearpage
+
+\section{Introduction}
+
+\section{Useful Operational Information for a Teacher}
+\subsection{Types of Information}In order for a teacher to operate at a functional level, there is specific information that is mandatory, and some information that just makes their lives easier on the job. For example - student names is absolutely mandatory due to the fact that a register must be completed at the start of every lesson. However, a list of student's parent contact information isn't necessary to have at all times, as this information can be easily queried from a higher member of staff, or school software. 
+
+\section{Useful Tactical Information for a Faculty Manager}
+
+\section{Useful Strategic Information for one of the Management Team}
+
+\newpage
+
+\printglossary[type=\acronymtype]
+ 
+\printglossary
+
+\lstlistoflistings
+
+\end{document}

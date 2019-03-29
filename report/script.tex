@@ -1,0 +1,580 @@
+\begin{lstlisting}[language=sql, caption=Database Generation Script, style=mystyle]
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `hopeville_school`
+--
+CREATE  DATABASE IF NOT EXISTS `hopeville_school` 
+DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `hopeville_school`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carer`
+--
+
+CREATE TABLE `carer` (
+  `carer_id` int(11) NOT NULL,
+  `carer_first_name` varchar(64) NOT NULL,
+  `carer_last_name` varchar(64) NOT NULL,
+  `carer_address` varchar(128) NOT NULL,
+  `carer_postcode` varchar(16) DEFAULT NULL,
+  `carer_phone_number` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carer_family_link`
+--
+
+CREATE TABLE `carer_family_link` (
+  `carer_family_link_id` int(11) NOT NULL,
+  `family_id` int(11) NOT NULL,
+  `carer_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `department`
+--
+
+CREATE TABLE `department` (
+  `department_id` int(11) NOT NULL,
+  `department_name` varchar(64) NOT NULL,
+  `department_age_group` varchar(16) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `department_link`
+--
+
+CREATE TABLE `department_link` (
+  `department_link_id` int(11) NOT NULL,
+  `department_id` int(11) NOT NULL,
+  `staff_id` int(11) NOT NULL,
+  `start_date` int(11) NOT NULL,
+  `end_date` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faculty`
+--
+
+CREATE TABLE `faculty` (
+  `faculty_id` int(11) NOT NULL,
+  `faculty_name` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faculty_link`
+--
+
+CREATE TABLE `faculty_link` (
+  `faculty_link_id` int(11) NOT NULL,
+  `staff_id` int(11) NOT NULL,
+  `faculty_id` int(11) NOT NULL,
+  `date_joined` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `family`
+--
+
+CREATE TABLE `family` (
+  `family_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `line_manager`
+--
+
+CREATE TABLE `line_manager` (
+  `line_manager_id` int(11) NOT NULL,
+  `line_manager_first_name` varchar(64) NOT NULL,
+  `line_manager_last_name` varchar(64) NOT NULL,
+  `line_manager_date_hired` int(11) NOT NULL,
+  `line_manager_hourly_salary` double(11,2) NOT NULL,
+  `line_manager_address` varchar(128) NOT NULL,
+  `line_manager_postcode` varchar(32) DEFAULT NULL,
+  `line_manager_phone_number` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `meeting`
+--
+
+CREATE TABLE `meeting` (
+  `meeting_id` int(11) NOT NULL,
+  `meeting_start_time` int(11) NOT NULL,
+  `meeting_duration` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `meeting_attendee`
+--
+
+CREATE TABLE `meeting_attendee` (
+  `meeting_attendee_id` int(11) NOT NULL,
+  `meeting_id` int(11) NOT NULL,
+  `staff_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pfa`
+--
+
+CREATE TABLE `pfa` (
+  `pfa_id` int(11) NOT NULL,
+  `carer_id` int(11) NOT NULL,
+  `pfa_join_date` int(11) NOT NULL,
+  `contributions` double(11,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `resources`
+--
+
+CREATE TABLE `resources` (
+  `resource_id` int(11) NOT NULL,
+  `resource_name` varchar(64) NOT NULL,
+  `resource_amount` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `resource_booking`
+--
+
+CREATE TABLE `resource_booking` (
+  `resource_booking_id` int(11) NOT NULL,
+  `resource_id` int(11) NOT NULL,
+  `staff_id` int(11) NOT NULL,
+  `date_out` int(11) NOT NULL,
+  `number_of_days` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role`
+--
+
+CREATE TABLE `role` (
+  `role_id` int(11) NOT NULL,
+  `role_name` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `room`
+--
+
+CREATE TABLE `room` (
+  `room_id` int(11) NOT NULL,
+  `room_name` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `room_booking`
+--
+
+CREATE TABLE `room_booking` (
+  `room_booking_id` int(11) NOT NULL,
+  `staff_id` int(11) NOT NULL,
+  `room_id` int(11) NOT NULL,
+  `booking_date` int(11) NOT NULL,
+  `duration` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `staff`
+--
+
+CREATE TABLE `staff` (
+  `staff_id` int(11) NOT NULL,
+  `staff_first_name` varchar(64) NOT NULL,
+  `staff_last_name` varchar(64) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `staff_date_hired` int(11) NOT NULL,
+  `staff_hourly_salary` double(11,2) NOT NULL,
+  `staff_address` varchar(24) NOT NULL,
+  `staff_phone_number` varchar(32) NOT NULL,
+  `line_manager_id` int(11) NOT NULL,
+  `payscale` double(11,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `staff_family_link`
+--
+
+CREATE TABLE `staff_family_link` (
+  `staff_family_link_id` int(11) NOT NULL,
+  `family_id` int(11) NOT NULL,
+  `staff_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student`
+--
+
+CREATE TABLE `student` (
+  `student_id` int(11) NOT NULL,
+  `carer_id` int(11) NOT NULL,
+  `student_name` varchar(36) NOT NULL,
+  `student_dob` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_department_link`
+--
+
+CREATE TABLE `student_department_link` (
+  `student_department_link_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `department_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_family_link`
+--
+
+CREATE TABLE `student_family_link` (
+  `student_family_link_id` int(11) NOT NULL,
+  `family_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subject`
+--
+
+CREATE TABLE `subject` (
+  `subject_id` int(11) NOT NULL,
+  `faculty_id` int(11) NOT NULL,
+  `subject_name` varchar(36) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subject_link`
+--
+
+CREATE TABLE `subject_link` (
+  `subject_link_id` int(11) NOT NULL,
+  `subject_id` int(11) NOT NULL,
+  `staff_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for tables
+--
+
+--
+-- Indexes for table `carer`
+--
+ALTER TABLE `carer`
+  ADD PRIMARY KEY (`carer_id`);
+
+--
+-- Indexes for table `carer_family_link`
+--
+ALTER TABLE `carer_family_link`
+  ADD PRIMARY KEY (`carer_family_link_id`);
+
+--
+-- Indexes for table `department`
+--
+ALTER TABLE `department`
+  ADD PRIMARY KEY (`department_id`);
+
+--
+-- Indexes for table `department_link`
+--
+ALTER TABLE `department_link`
+  ADD PRIMARY KEY (`department_link_id`);
+
+--
+-- Indexes for table `faculty`
+--
+ALTER TABLE `faculty`
+  ADD PRIMARY KEY (`faculty_id`);
+
+--
+-- Indexes for table `faculty_link`
+--
+ALTER TABLE `faculty_link`
+  ADD PRIMARY KEY (`faculty_link_id`);
+
+--
+-- Indexes for table `family`
+--
+ALTER TABLE `family`
+  ADD PRIMARY KEY (`family_id`);
+
+--
+-- Indexes for table `line_manager`
+--
+ALTER TABLE `line_manager`
+  ADD PRIMARY KEY (`line_manager_id`);
+
+--
+-- Indexes for table `meeting`
+--
+ALTER TABLE `meeting`
+  ADD PRIMARY KEY (`meeting_id`);
+
+--
+-- Indexes for table `meeting_attendee`
+--
+ALTER TABLE `meeting_attendee`
+  ADD PRIMARY KEY (`meeting_attendee_id`);
+
+--
+-- Indexes for table `pfa`
+--
+ALTER TABLE `pfa`
+  ADD PRIMARY KEY (`pfa_id`);
+
+--
+-- Indexes for table `resources`
+--
+ALTER TABLE `resources`
+  ADD PRIMARY KEY (`resource_id`);
+
+--
+-- Indexes for table `resource_booking`
+--
+ALTER TABLE `resource_booking`
+  ADD PRIMARY KEY (`resource_booking_id`);
+
+--
+-- Indexes for table `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`role_id`);
+
+--
+-- Indexes for table `room`
+--
+ALTER TABLE `room`
+  ADD PRIMARY KEY (`room_id`);
+
+--
+-- Indexes for table `room_booking`
+--
+ALTER TABLE `room_booking`
+  ADD PRIMARY KEY (`room_booking_id`);
+
+--
+-- Indexes for table `staff`
+--
+ALTER TABLE `staff`
+  ADD PRIMARY KEY (`staff_id`);
+
+--
+-- Indexes for table `staff_family_link`
+--
+ALTER TABLE `staff_family_link`
+  ADD PRIMARY KEY (`staff_family_link_id`);
+
+--
+-- Indexes for table `student`
+--
+ALTER TABLE `student`
+  ADD PRIMARY KEY (`student_id`);
+
+--
+-- Indexes for table `student_department_link`
+--
+ALTER TABLE `student_department_link`
+  ADD PRIMARY KEY (`student_department_link_id`);
+
+--
+-- Indexes for table `student_family_link`
+--
+ALTER TABLE `student_family_link`
+  ADD PRIMARY KEY (`student_family_link_id`);
+
+--
+-- Indexes for table `subject`
+--
+ALTER TABLE `subject`
+  ADD PRIMARY KEY (`subject_id`);
+
+--
+-- Indexes for table `subject_link`
+--
+ALTER TABLE `subject_link`
+  ADD PRIMARY KEY (`subject_link_id`);
+
+--
+-- AUTO_INCREMENT for tables
+--
+
+--
+-- AUTO_INCREMENT for table `carer_family_link`
+--
+ALTER TABLE `carer_family_link`
+  MODIFY `carer_family_link_id` int(11) 
+  NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `department`
+--
+ALTER TABLE `department`
+  MODIFY `department_id` int(11) 
+  NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `department_link`
+--
+ALTER TABLE `department_link`
+  MODIFY `department_link_id` int(11) 
+  NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=301;
+--
+-- AUTO_INCREMENT for table `faculty`
+--
+ALTER TABLE `faculty`
+  MODIFY `faculty_id` int(11) NOT NULL 
+  AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `faculty_link`
+--
+ALTER TABLE `faculty_link`
+  MODIFY `faculty_link_id` int(11) NOT 
+  NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `family`
+--
+ALTER TABLE `family`
+  MODIFY `family_id` int(11) NOT NULL 
+  AUTO_INCREMENT, AUTO_INCREMENT=22;
+--
+-- AUTO_INCREMENT for table `line_manager`
+--
+ALTER TABLE `line_manager`
+  MODIFY `line_manager_id` int(11) 
+  NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `meeting`
+--
+ALTER TABLE `meeting`
+  MODIFY `meeting_id` int(11) 
+  NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT for table `pfa`
+--
+ALTER TABLE `pfa`
+  MODIFY `pfa_id` int(11) 
+  NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=251;
+--
+-- AUTO_INCREMENT for table `resources`
+--
+ALTER TABLE `resources`
+  MODIFY `resource_id` int(11) 
+  NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `resource_booking`
+--
+ALTER TABLE `resource_booking`
+  MODIFY `resource_booking_id` int(11) 
+  NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+--
+-- AUTO_INCREMENT for table `role`
+--
+ALTER TABLE `role`
+  MODIFY `role_id` int(11) 
+  NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `room`
+--
+ALTER TABLE `room`
+  MODIFY `room_id` int(11) 
+  NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `room_booking`
+--
+ALTER TABLE `room_booking`
+  MODIFY `room_booking_id` int(11) 
+  NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `staff`
+--
+ALTER TABLE `staff`
+  MODIFY `staff_id` int(11) 
+  NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+--
+-- AUTO_INCREMENT for table `staff_family_link`
+--
+ALTER TABLE `staff_family_link`
+  MODIFY `staff_family_link_id` int(11) 
+  NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `student`
+--
+ALTER TABLE `student`
+  MODIFY `student_id` int(11) 
+  NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=501;
+--
+-- AUTO_INCREMENT for table `student_department_link`
+--
+ALTER TABLE `student_department_link`
+  MODIFY `student_department_link_id` int(11) 
+  NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=501;
+--
+-- AUTO_INCREMENT for table `student_family_link`
+--
+ALTER TABLE `student_family_link`
+  MODIFY `student_family_link_id` int(11) 
+  NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `subject`
+--
+ALTER TABLE `subject`
+  MODIFY `subject_id` int(11) 
+  NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `subject_link`
+--
+ALTER TABLE `subject_link`
+  MODIFY `subject_link_id` int(11) 
+  NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+\end{lstlisting}
